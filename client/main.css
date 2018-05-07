@@ -20,3 +20,11 @@ panel {
     background: black;
     background-color: black;
 }
+
+.text{
+    color:white;
+}
+
+ul{
+    list-style-type: none;
+}

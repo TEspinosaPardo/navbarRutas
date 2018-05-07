@@ -16,11 +16,11 @@ export default class Post extends Component {
         <input
         type="checkbox"
         readOnly
-        checked={!!this.props.task.checked}
+        checked={!!this.props.post.pinned}
         onClick={this.toggleChecked.bind(this)}
         />
 
-        <span className="text">{this.props.task.text}</span>
+        <span className="text">{this.props.post.title}</span>
       </li>
     );
   }

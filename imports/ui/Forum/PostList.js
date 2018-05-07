@@ -7,13 +7,9 @@ import Post from './Post';
 
 class PostList extends Component {
   renderPosts() {
-
     return this.props.posts.map((post) => (
-
-      <Post key={task._id} post={post} />
-
+      <Post key={post._id} post={post} />
     ));
-
   }
 
     render() {
@@ -25,6 +21,6 @@ class PostList extends Component {
 
 export default withTracker(() => {
   return {
-    posts: Posts.find({}).fetch(),
+    posts: Posts.find({},{sort:{pinned: -1,createdAt:-1}}).fetch(),
   };
 })(PostList);

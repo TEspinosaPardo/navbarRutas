@@ -3,6 +3,8 @@ import { Panel, Button, FormGroup, ControlLabel, FormControl, Modal } from 'reac
 import FieldGroup from 'react-bootstrap';
 import ReactDOM from 'react-dom';
 
+import { Posts } from '../../collections/Posts';
+
 
 export default class NewPost extends Component {
     constructor(props, context) {
@@ -16,24 +18,28 @@ export default class NewPost extends Component {
         };
     }
 
-
-    handleClose() {
-      //event.preventDefault();
-      this.setState({ show: false });
+    handleSubmit(event){
+      event.preventDefault();
       // Find the text field via the React ref
-      //const title = ReactDOM.findDOMNode(this.refs.title).value.trim();  
-      //const content = ReactDOM.findDOMNode(this.refs.content).value.trim(); 
+      const title = ReactDOM.findDOMNode(this.inputTitle).value.trim();  
+      const content = ReactDOM.findDOMNode(this.inputContent).value.trim(); 
 
-      //Tasks.insert({
-      //  title,
-      //  content,
-      //  pinned,
-      //  createdAt: new Date(), // current time
-      //});
+      Posts.insert({
+        owner: Meteor.user().username,
+        title,  
+        content,
+        pinned: false,
+        createdAt: new Date(), // current time
+      });
 
       // Clear form
-      //ReactDOM.findDOMNode(this.refs.title).value = '';
-      //ReactDOM.findDOMNode(this.refs.content).value = '';
+      ReactDOM.findDOMNode(this.inputTitle).value = '';
+      ReactDOM.findDOMNode(this.inputContent).value = '';
+    }
+
+
+    handleClose() {
+      this.setState({ show: false });
     }
     
     handleShow() {
@@ -51,8 +57,7 @@ export default class NewPost extends Component {
         );
     }
     return (
-        <div>
-            
+        <div>    
             <Button bsStyle="success" onClick={this.handleShow}>
                 New post
             </Button>
@@ -67,14 +72,15 @@ export default class NewPost extends Component {
               type="text"
               label="Text"
               placeholder="Enter text"
+              inputRef={(input) => this.inputTitle = input}              
               />
               <FormGroup controlId="formControlsTextarea">
                 <ControlLabel>Textarea</ControlLabel>
-                <FormControl componentClass="textarea" placeholder="textarea"/>
+                <FormControl componentClass="textarea" placeholder="textarea" inputRef={(input) => { this.inputContent = input; }}/>
               </FormGroup>
             </Modal.Body>
             <Modal.Footer>
-              <Button onClick={this.handleClose}>Submit</Button>
+              <Button onClick={this.handleSubmit.bind(this)}>Submit</Button>
             </Modal.Footer>
           </Modal>
         </form>
