@@ -1,0 +1,22 @@
+/* CSS declarations go here */
+
+#logo{
+    width: 20%;
+    margin-right: -30%;
+}
+
+img{
+    width: 100px;
+}
+
+.navbar-nav span[role=button] {
+    padding: 15px;
+    display: inline-block;
+    line-height: 20px;
+}
+
+panel {
+    background-image: none;
+    background: black;
+    background-color: black;
+}
